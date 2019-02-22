@@ -1,0 +1,124 @@
+{extend name="Public:base" /}
+{block name="content"}
+      
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                   <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('lst')}">权限配置</a>
+                        </li>
+                                        <li>
+                        <a href="{:url('lst')}">规则管理</a>
+                    </li>
+                                        <li class="active">添加规则</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+<!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>
+                            添加规则
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen active" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header ">
+                                    <span class="widget-caption">添加规则</span>
+                                </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" >
+                   <div class="form-group">
+                                                <label for="username" class="col-sm-2 control-label no-padding-right">上级权限</label>
+                                                <div class="col-sm-4">
+                                                    <select name="pid" style="width: 100%;" id='selects'>
+                                                        <option value="0">==顶级权限==</option>
+                                                       
+                                                         {volist name='authruleres' id='vo'}
+                                                            <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}<font style="font-weight:100;">├</font>{/if}<?php echo str_repeat('─', $vo['level']*2)?>{$vo.title}</option>
+                                                          {/volist}  
+                                                         
+                                                     </select>
+                                                </div>
+                                                <p class="help-block col-sm-5"><span class="label label-info">请选择上级权限</span></p>
+                                            </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">权限名称</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="typename" placeholder="" name="title" required type="text">
+                            </div>
+                            <p class="help-block col-sm-5"><span class="label label-info">必填!</span></p>
+                        </div>
+                         
+                         <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">控/方</label>
+                            <div class="col-sm-4">
+                                <input class="form-control"  placeholder="" name="name" required type="text">
+                            </div>
+                            <p class="help-block col-sm-5"><span class="label label-info">必填!</span></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">规则</label>
+                            <div class="col-sm-6">
+                               
+                                                   <div class="radio inline-block">
+                                                        <label>
+                                                            <input name="status" value="1" type="radio" checked="checked">
+                                                            <span class="text">是</span>
+                                                        </label>
+                                                    </div>
+                                 
+                                 
+                                      
+                                                   <div class="radio inline-block">
+                                                        <label>
+                                                            <input name="status" value="0" type="radio" >
+                                                            <span class="text">否</span>
+                                                        </label>
+                                                    </div>
+                                 
+                                 
+                                                                    </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                 <button type="button" class="btn btn-success add-admin-btn" id='adminbtn' >保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+       
+
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__ADMIN__/js/authrule/authrule.js" charset="utf-8"></script>
+{/block}

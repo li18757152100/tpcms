@@ -1,0 +1,104 @@
+{extend name='public/base'}
+{block name="css"}
+ <link href="__INDEX__/css/ZoomImg.css" rel="stylesheet" type="text/css" />
+  {/block}
+{block name='body'}
+<div class="path" style="width:1200px; margin:auto; margin-top:20px; margin-bottom:15px;">
+<a href='/'>网站首页</a> > 
+        {volist name="posArr" id="posCate"}
+        <a href='{:url('cate/index')}?cateid={$posCate.id}'>{$posCate.typename}</a> > 
+        {/volist}
+        </div>
+<div style="width:1200px; margin:auto;">
+ <style>
+											 .sonmenu{font-size:14px; display:inline-block; padding:5px 15px; border:1px solid #ddd; text-align:center;}
+											a.sonactive{color:#fff!important; background:blue!important; border:1px solid blue!important;padding:5px 15px;}
+											</style>
+ {volist name='cates' id='vo'}
+                                            <a href='{:url('cate/index')}?cateid={$vo.id}' {$vo['id']==$current?' class="sonmenu sonactive"':'' } class='sonmenu'>{$vo.typename}</a>
+                                            {/volist}
+<h3 style="font-size:18px; font-weight:600;color:#333; border-bottom:1px solid #ccc;margin-bottom:15px; padding:12px 0;">{$_cate.typename}</h3>
+   <h1 style="text-align:center;font-size:20px;">{$info.title}</h1>
+   <h2 style="text-align:center; font-size:14px; height:50px; line-height:50px; border-bottom:1px dashed #ebebeb; margin-bottom:30px;">发布时间：：<?=date('Y-m-d',$info['time'])?>&nbsp;&nbsp;&nbsp;&nbsp;来源：{$info.author}&nbsp;&nbsp;&nbsp;&nbsp;点击：{$info.click}</h2>
+
+<div style="margin-top:15px; margin-bottom:30px;">
+{if condition="$cate_info.type eq 1"}
+<p>{$info.content}</p>
+{elseif condition="$cate_info.type eq 2" /}
+<p>{$info.content}</p>
+<div class="show clearfix">
+					<div class="ZoomImg" id="ZoomImg">
+						<div class="ZoomImgBig">
+                        {volist name='photos1' id='vo'}
+							<img src="__UPLOADS__/photos/{$vo.fimage}" bigimg="__UPLOADS__/photos/{$vo.fimage}" class="bigImg" alt='{$vo.pictitle}'>
+                            {/volist}
+						</div>
+						<div class="ZoomImgThumb" id="ZoomImgThumb">
+							<div class="scrollpic">
+								<ul>
+									{volist name='photos' id='vo'}
+									<li>
+										<a href="javascript:void(0)">
+											<img src="__UPLOADS__/photos/{$vo.fimage}" bigimg="__UPLOADS__/photos/{$vo.fimage}" smallimg="__UPLOADS__/photos/{$vo.fimage}" alt='{$vo.pictitle}'>
+										</a>
+									</li>
+									{/volist}
+								</ul>
+							</div>
+						</div>
+                        
+					</div>
+                    <p style="color:#ddd">--------------------------------------------------------------------------------------------------------</p>
+                        <p style="font-size:16px; padding:15px 0px;"><b>详细内容</b></p>
+                        <p>{$info.content}</p>
+				</div>
+                
+   {/if}             
+<p style="color:#ddd">--------------------------------------------------------------------------------------------------------</p>
+<p>
+{if condition="$prev"}
+
+		<a href="{:url('cate/show')}?cateid={$prev.cateid}&aid={$prev.id}">上一篇：{$prev.title}</a>
+
+		{else /}
+
+		上一篇：暂无内容~
+
+		{/if}
+</p>
+<p>{if condition="$next"}
+
+		<a href="{:url('cate/show')}?cateid={$next.cateid}&aid={$next.id}">下一篇：{$next.title}</a>
+
+		{else /}
+
+		下一篇：暂无内容~
+
+		{/if}</p>
+</div>
+</div>
+    {/block}
+       
+{block name="js"}
+<script src="http://demo.shizhanweb.com/public/static/admin/style/jquery_002.js"></script>
+
+ <script src="http://demo.shizhanweb.com/public/static/admin/style/jquery.js"></script>
+
+ <script src="__INDEX__/js/gxr.ZoomImg.js"></script>
+		<script src="__INDEX__/js/jquery.ZoomScrollPic.js"></script>
+		<script>
+			//产品图片放大操作
+			$('#ZoomImg').ZoomImg({
+				ZoomW: 420,
+				ZoomH: 420,
+			});
+
+			$("#ZoomImgThumb").ZoomScrollPic({
+				box_w: 74,
+				bun: true
+			});
+		</script>
+
+     {/block}
+</body>
+</html>

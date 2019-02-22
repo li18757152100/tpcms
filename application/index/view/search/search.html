@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>搜索详情</title>
+<link rel="stylesheet" type="text/css" href="__INDEX__/style/css/style.css" media="all">
+<link href="__INDEX__/style/css/animate.min.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="__INDEX__/style/js/jquery-1.7.2.js"></script>
+<script language="javascript" type="text/javascript" src="__INDEX__/style/js/base.js"></script>
+</head>
+<body>
+<div class="topline"></div>
+<div class="logo scroll">
+<div class='rsaut'>
+<span style="float:right;"><a href='/'>Home</a></span>Search<font style="color:red; margin:0 5px;">{$keywords}</font>result
+</div>
+</div>
+
+<div class='inNeiye'>
+<div class="inNeiye">
+
+        <div class="dongtai clearfix">
+            <ul>
+            {if condition="$keywords neq ''"}
+            {volist name='res' id='vo'}
+               {$vo.name}
+              {/volist}
+{else}
+没有搜索关键词
+{/if} 
+            </ul>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+ </body>
+</html>          

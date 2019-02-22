@@ -1,0 +1,84 @@
+{extend name="Public:base" /}
+{block name="content"}
+	                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{url('Index/index')}">首页</a>
+                        </li>
+                        <li class="active">控制面板</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+ <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>
+                            控制面板
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen active" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+				       <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+
+                            <div class="widget flat">
+                                <div class="widget-header bordered-bottom bordered-platinum">
+                                    <span class="widget-caption">系统信息</span>
+                                    <div class="widget-buttons">
+                                        <a href="#" data-toggle="maximize">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                        <a href="#" data-toggle="collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                    </div><!--Widget Buttons-->
+                                </div><!--Widget Header-->
+                                <div class="widget-body">
+                                     <ul class="sys-info-list">
+                                     {volist name='info' id='vo'}
+                                           <li>
+                                            <label class="res-lab">{$key}：</label><span class="res-info">{$vo}</span>
+                                        </li>
+                                       {/volist}    
+                                       
+                                    </ul>
+                                    
+                                </div><!--Widget Body-->
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="well bordered-left bordered-themeprimary">
+                                        <p><i class="fa fa-hdd-o darkorange margin-right-5"></i><strong>版本:</strong>企业后台V1.0系统</p>
+                                        <p><i class="fa fa-user palegreen margin-right-5"></i><strong>开发者 :</strong>匿名</p>
+                                        
+                                        <p><i class="fa fa-envelope themeprimary margin-right-5"></i><strong>Email:</strong> <a href="">good@mail.com</a></p>
+                                        <p><i class="fa fa-phone darkorange margin-right-5"></i><strong>Mobile:</strong> 18757152100</p>
+                                        <p><i class="fa fa-umbrella sky margin-right-5"></i><strong>版权所有</strong>©故乡人网络科技-<a href="http://www.hzgxr.com/" class='x-a' target="_blank">访问官网</a></p>
+                                    </div>
+                                </div>
+                    </div>
+                
+                
+                </div>
+                
+
+{/block}

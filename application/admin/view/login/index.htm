@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><!--Head--><head>
+    <meta charset="utf-8">
+    <title>企业网站后台管理</title>
+    <meta name="description" content="login page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/style/style.css" rel="stylesheet">
+    <style>
+   body{height:100%;overflow:hidden;}
+  canvas{z-index:-1;position:absolute;}
+.layui-form input::-webkit-input-placeholder {color: #cff5ed!important;}
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"]{ border:1px solid #176d63;}
+</style>
+</head>
+<!--Head Ends-->
+<!--Body-->
+
+<body>
+    <div class="login-container animated fadeInDown">
+        <form class="layui-form">
+            <div class="loginbox">
+                <div class="loginbox-title" style="padding:20px 0; letter-spacing:2px; font-weight:400;color:#cff5ed;">网站后台管理</div>
+                <div style="clear:both;height:15px;"></div>
+                
+                <div class="loginbox-textbox">
+                <div class="form-group">
+                                                                <span class="input-icon icon-left">
+                                                                    <input name="name" type="text" class="form-control" id="username" placeholder="用户名"  style="background:#10574b;color:#fff; ">
+                                                                    <i class="glyphicon glyphicon-user circular" style="color:#cff5ed"></i>
+                                                                </span>
+                                                            </div>
+                                                            </div>
+                                                            <div class="loginbox-textbox">
+                                                            <div class="form-group">
+                                                                <span class="input-icon icon-left">
+                                                                    <input name="password" type="password" class="form-control" id="L_pass" placeholder="密码" style="background:#10574b;color:#fff; ">
+                                                                    <i class="fa fa-lock circular" style="color:#cff5ed"></i>
+                                                                </span>
+                                                            </div>
+                                                            </div>
+                
+                <div class="loginbox-textbox">
+                <div class="form-group">
+                                                                <span class="input-icon icon-left">
+                    <input style="background:#10574b;color:#fff;" id="code" maxlength="4" class="form-control captcha-text inline-block" placeholder="验证码" name="code" type="text">
+                      <i class="fa fa-barcode" style="color:#cff5ed"></i>
+                                                                
+                    <img class="captcha inline-block" width="105" height="30" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random();" alt="点击图片更换验证码" title="点击图片更换验证码" style="cursor:pointer; border-radius:3px;margin-top:1px;">
+                  </span>
+                                                            </div>
+                </div>
+                <div class="loginbox-submit">
+                    <input class="btn btn-primary btn-block" value="Login" type="button" id="loginbtn" style="color:#cff5ed;">
+                </div>
+            </div>
+                <div class="logobox">
+                <p class="text-center" style="line-height:40px;" >Copyright © 2005-2018&nbsp;&nbsp;<a href="javascript:;" target="_blank">故乡人网络</a></p>
+
+                </div>
+        </form>
+    </div>
+    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    <script type="text/javascript" src="__ADMIN__/js/layer/layer.js" charset="utf-8"></script>
+    <script src="js/verificationNumbers.js" tppabs="__ADMIN__/js/verificationNumbers.js"></script>
+    <script src="__ADMIN__/js/Particleground.js" tppabs="__ADMIN__/js/Particleground.js"></script>
+    <script type="text/javascript" src="__ADMIN__/js/login.js" charset="utf-8"></script>
+
+
+</body><!--Body Ends--></html>

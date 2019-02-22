@@ -1,0 +1,252 @@
+{extend name="Public:base" /}
+{block name="css"}
+<link href="__ADMIN__/style/img.css" rel="stylesheet">
+{/block}
+{block name="content"}
+      
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                   <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('lst')}">栏目管理</a>
+                        </li>
+                                        <li>
+                        <a href="{:url('lst')}">栏目列表</a>
+                    </li>
+                                        <li class="active">编辑栏目</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+<!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>
+                            编辑栏目
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen active" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header ">
+                                    <span class="widget-caption">编辑栏目</span>
+                                </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" id= "uploadForm">
+                    <div class="tabbable">
+                    <ul class="nav nav-tabs tabs-flat" id="myTab11">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home11">
+                                        基本信息
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#profile11">
+                                        SEO信息
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#profile12">
+                                        栏目内容
+                                    </a>
+                                </li>
+                            </ul>
+                     <div class="tab-content tabs-flat">
+                            <div id="home11" class="tab-pane active">
+                            <!-------->
+                            <div class="form-group cate-model">
+                            <label for="group_id" class="col-sm-1 control-label no-padding-right">所属栏目</label>
+                            <div class="col-sm-3">
+                                <select name="pid" style="width: 100%;">
+                               <option value="0">==作为一级栏目==</option>
+ {volist name='cateres' id='cate'}
+<option {if condition="$cates['pid'] eq $cate['id']"}selected='selected'{/if}  value="{$cate.id}">{if condition="$cate['level'] neq 0"}<font style="font-weight:100;">├</font>{/if}<?php echo str_repeat('─', $cate['level']*2)?>{$cate.typename}</option>
+{/volist}
+                                                                                                                                                                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">栏目名称</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="typename" placeholder="" name="typename" required type="text" value="{$cates.typename}">
+                            </div>
+                            <p class="help-block col-sm-4"><span class="label label-info">必填!</span></p>
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">英文名称</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="" placeholder="" name="enname" required type="text" value="{$cates.enname}">
+                            </div>
+                           </div>
+                        <div class="form-group cate-model">
+                            <label for="group_id" class="col-sm-1 control-label no-padding-right">栏目类型</label>
+                            <div class="col-sm-3">
+                                <select name="type" style="width: 100%;" id='selects'>
+                                <option value="0">==请选择栏目类型==</option>
+                                  <option  {if condition="$cates['type'] eq 1"}selected='selected'{/if}  value="1">文章列表</option>
+                                  <option  {if condition="$cates['type'] eq 2"}selected='selected'{/if}  value="2">图片列表</option>
+                                   <option  {if condition="$cates['type'] eq 3"}selected='selected'{/if}  value="3">单页面</option>
+                                    <option  {if condition="$cates['type'] eq 4"}selected='selected'{/if}  value="4">外链地址</option>
+                                    <option  {if condition="$cates['type'] eq 5"}selected='selected'{/if}  value="5">独立模块</option>
+                                                                                                                                                                             </select>
+                            </div>
+                            <p class="help-block col-sm-5"><span class="label label-info">必填!</span></p>
+                        </div>
+                        
+                         
+                                            <div class="form-group">
+                                                <label for="username" class="col-sm-1 control-label no-padding-right">图片上传</label>
+                                                <div class="col-sm-2" style="padding-top:5px;">
+                                                    <!----->
+                                                  {if condition="$cates['image'] neq ''"}   
+                                                    <div class="item">
+<a class="addImg" onclick="clickImg(this);" ></a>
+<input name="image" type="file" class="upload_input" onchange="change(this)" />
+<div class="preBlock">
+
+<img class="preview" id="preview" alt="" name="pic" width="150" height="100"  src="__UPLOADS__/articlecate/{$cates.image}"/>
+ 
+
+</div>
+<img class="delete" onclick="deleteImg(this)" src="__ADMIN__/images/delete.png" width='22' height='22'/>
+</div>
+{else /}
+                                                <div class="item">
+<a class="addImg" onclick="clickImg(this);" ></a>
+<input name="image" type="file" class="upload_input" onchange="change(this)" />
+<div class="preBlock">
+
+ <img class="preview" id="preview" alt="" name="pic" width="150" height="100" />
+ 
+</div>
+<img class="delete" onclick="deleteImg(this)" src="__ADMIN__/images/delete.png" width='22' height='22'/>
+</div>
+ {/if}
+                                                    <!---------->
+                                                    
+                                                    
+                                                </div>
+                                                 <p class="help-block col-sm-5"><span class="label label-info">图片的格式必须为png或者jpg或者jpeg格式！!</span></p>
+                                                
+                                            </div>
+                                            <div class="form-group" >
+                                        <label for="username" class="col-sm-1 control-label no-padding-right">是否隐藏</label>
+                                        <div class="col-sm-1">
+                                           <label>
+                                                            <input class="checkbox-slider toggle" type="checkbox" name='is_show' {if condition="$cates['is_show'] eq 1"} checked="checked" {/if} value="1">
+                                                            <span class="text"></span>
+                                                        </label>   
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id='_link_'>
+                            <label for="username" class="col-sm-1 control-label no-padding-right">外链地址</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="" placeholder="" name="link" required type="text" value="{$cates.link}">
+                            </div>
+                            <p class="help-block col-sm-5"><span class="label label-info">请输入链接地址（http://）</span></p>
+                        </div>
+                        <div class="form-group" id='_urlink_'>
+                            <label for="username" class="col-sm-1 control-label no-padding-right">模块地址</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="" placeholder="" name="urlink" required type="text" value="{$cates.urlink}" {if condition="$cates['type'] eq 5"}disabled{/if} >
+                            </div>
+                            <p class="help-block col-sm-5"><span class="label label-info">(不允许更改)</span></p>
+                        </div>
+                            <!--------->
+                            </div>
+                            <div id="profile11" class="tab-pane">
+                                   <!------------->
+                                    <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">关键词</label>
+                            <div class="col-sm-6">
+                                <input class="form-control"  placeholder="" name="keywords"  type="text" value="{$cates.keywords}">
+                            </div>
+                           
+                        </div>
+                        
+ <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">栏目描述</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control"  rows="6" name='description' placeholder="">{$cates.description}</textarea>
+
+                            </div>
+                          
+                        </div>
+  
+                                   <!--------------->
+                            </div>
+                            <div id="profile12" class="tab-pane">
+                                  <!------content----->
+                                  <div class="form-group">
+                                  <div class="col-sm-6">
+                                <textarea id="content" name='content' rows="3" required placeholder="">{$cates.content}</textarea>
+
+                            </div>
+                           
+                        </div>
+                                  <!------content---->
+                            </div>
+                     </div>
+                     </div>       
+                    
+<input type="hidden" name="id" value="{$cates.id}">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                 <button type="button" class="btn btn-success add-admin-btn" onclick="edoUpload()" type = "button">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                </div>
+                <!-- /Page Body -->
+       
+
+{/block}
+{block name="js"}
+<script src="__ADMIN__/ueditor/ueditor.config.js"></script>
+<script src="__ADMIN__/ueditor/ueditor.all.min.js"></script>
+<script src="__ADMIN__/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__ADMIN__/js/cate/cate.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN__/js/upimg.js" charset="utf-8"></script>>
+<script type="text/javascript">
+$(function(){
+	var tags = document.getElementById("selects").value;
+	if(tags == 4){
+			$("#_link_").show();
+			 $("#_urlink_").hide();
+	}else if(tags == 5){
+		   $("#_urlink_").show();
+		    $("#_link_").hide();
+		}else{
+		    $("#_link_,#_urlink_").hide();
+		}
+		
+}
+)
+</script>
+{/block}

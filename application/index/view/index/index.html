@@ -1,0 +1,198 @@
+{extend name='public/base'}
+{block name="css"}
+
+<link href="__INDEX__/css/FoucsImg.css" rel="stylesheet" type="text/css" />
+  {/block}
+{block name='body'}
+<div class="FocusImg" id="FocusImg">
+					<ul class="pic">
+						{volist name='ads' id='vo'}
+						<li style="background-image:url(__UPLOADS__/ads/{$vo.image});">
+							<a href="{$vo.url}" ></a>
+						</li>
+                        {/volist}
+					</ul>
+				</div>
+<div style=" width:1200px; margin:auto; margin-top:40px;">
+<h1 style="font-size:16px; margin-bottom:15px;"><font style="font-size:22px;margin-right:5px;">&#9749</font>新闻中心</h1>
+<ul>
+
+   {volist name='NewList' id='vo'}
+   <?php 
+                                    $attr=$vo['attr'];
+                                    $attr=explode(',', $attr);
+
+                                ?>
+                                
+   <!--<li><a href='{:url('cate/show',['cateid'=>$vo['cateid'],'aid'=>$vo['id']])}'>{$vo.title}</a></li>-->
+   {if condition="$vo['attr'] eq '推荐'"}
+   <li><a href="{:url('cate/show')}?cateid={$vo.cateid}&aid={$vo.id}" style="line-height:30px; " title="{$vo.title}"><font style="margin-right:10px;">&#10140</font><font style="background:#F90; color:#fff; margin-right:5px;"><?php if(in_array('推荐', $attr)){echo '推荐';}?></font>{$vo.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style='background:#eee;'>{$vo.time|date="Y-m-d",###}</span>&nbsp;&nbsp;&nbsp;&nbsp;浏览【<b style="background:red;color:#fff; border-radius:100%; width:22px; height:22px; display:inline-block; padding:2px; text-align:center;">{$vo.click}</b>】次</li>
+
+   {/if}
+
+   {/volist}
+</ul>
+</div>
+<div style=" width:1200px; margin:auto; margin-top:40px; font-size:16px;">
+<h1 style="font-size:16px; margin-bottom:15px;"><font style="font-size:22px;margin-right:5px;">&#9749</font>搜索详情</h1>
+<form class='aa'>
+<div class="form-group" >
+                           <label for="username" class="col-sm-1 control-label no-padding-right">  <input type="button" value="搜索" id='search' class='btn btn-success add-admin-btn fr' style="background:#6C3; border:none; height:46px; width:60px;"/></label>
+                            <div class="col-sm-4">
+
+<input type="text" placeholder="请输入关键字" name="keywords" id="keywords" class='form-control'/>
+
+</div>
+</div>
+</form>
+<div style="clear:both; height:30px;"></div>
+<div class="form-group" >
+{if condition="$keywords neq ''"}
+            {volist name='res' id='vo'}
+               <a href="{:url('cate/show')}?cateid={$vo.cateid}&aid={$vo.id}" style="line-height:30px;font-size:12px;"><font style="margin-right:10px;">&#10140</font>{$vo.title}</a><br/>
+              {/volist}
+{else}
+没有搜索关键词
+{/if} 
+</div>
+</div>
+
+<div style="width:400px; height:auto; margin:Auto; margin-top:100px;">	
+<input type="text"  name="name" id='name' placeholder="请输入姓名" class="t-f form-control">	 	  
+<input type="text" name="tel" id='tel' placeholder="手机" class="t-f form-control">
+<input type="text" name="email" id='email' placeholder="邮箱" class="t-f form-control">
+<textarea name="content" id='content' rows="5" cols="" placeholder="请输入内容" class="t-f"></textarea>
+<button type="button" id="s-btn" class="btn t-f" style="background:#36C; color:#fff; border:none; height:42px;">提交</button>
+<div style="clear:both; height:30px;"></div>
+{volist name='MessageLst' id='vo'}
+<p style="color:#666"><B>{$vo.name}</B>于{$vo.add_time|date="Y-m-d H:i:s",###}留言说：</p>
+<p style="background:#f1f1f1;padding:5px;font-size:12px; border-radius:4px; color:#000;">{$vo.content}</p>
+<p style="color:red; font-size:12px;">{if condition="$vo['update_time'] eq 0"}
+
+                                     {else/}
+                                     {$vo.update_time|date="Y-m-d H:i:s",###}
+                                     {/if}&nbsp;&nbsp;<B>管理员回复：</B>
+                                     {$vo.hcontent}
+                                    </p>
+
+<p>--------------------------------</p>
+{/volist}
+{empty name='MessageLst'}
+ <p style="font-size:14px;">暂时没有数据~</p>
+  {/empty}
+
+  <div style="margin:20px; text-align:center">
+    {$page}
+    </div>
+    </div>
+    {/block}
+       
+{block name="js"}
+   <script src="http://demo.shizhanweb.com/public/static/admin/style/jquery_002.js"></script>
+    
+    <script src="http://demo.shizhanweb.com/public/static/admin/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+
+    <script type="text/javascript" src="http://demo.shizhanweb.com/public/static/admin/js/layer/layer.js" charset="utf-8"></script>
+
+<script src="__INDEX__/js/jquery.FocusImg.js"></script>
+		<script>
+			//主屏焦点图
+			$("#FocusImg").FocusImg({
+				jqBox: "#FocusImg",
+				box_w: "auto",
+				Interval: 5000,
+				bun: true,
+				btn: true,
+				num_text:false
+			});
+		</script>
+<script>
+        
+		  
+		  $(function(){
+                $("#s-btn").on('click',function(){
+		var name = $("#name").val();
+		var tel = $("#tel").val();
+		var email = $("#email").val();
+		var content = $("#content").val();
+		
+		if(name == '') {
+			layer.msg('用户名不能为空！');
+			return false;
+		} else if(tel == '') {
+			layer.msg('电话不能为空！');
+			return false;
+		}  else if(email == '') {
+			layer.msg('邮箱不能为空！');
+			return false;
+		}else if(content == '') {
+			layer.msg('咨询项目简介不能为空！');
+			return false;
+		}
+		/*var myName = /\S{2,}/;
+	      if (myName.test($("#name").val())) {} else {  layer.msg('姓名不能为少于两个字！');return false; }
+		var myTel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+	      if (myTel.test($("#tel").val())) {} else {  layer.msg('请输入正确的手机号！');return false; }
+		var myEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+	      if (myEmail.test($("#email").val())) {} else {  layer.msg('邮箱不合法！');return false; }
+		var myContent = /\S{5,}/;
+	      if (myContent.test($("#content").val())) {} else {  layer.msg('内容不能为少于五个字！');return false; }*/
+		  
+		var result = {
+			name:name,
+			tel:tel,
+			email:email,
+			content:content
+		};
+                    $.ajax({
+                        type: 'POST',
+                        url: "{:url('index/sendMessage')}",
+                        data: result,
+                        dataType: "json",
+                        success: function(data){
+                            if (data.code ==1) {
+								layer.msg(data.msg,function(){
+										window.location.href = "{:url('index')}";
+									});
+                            } else {
+								layer.msg(data.msg);
+                            }
+                        }
+                    })
+                })
+            })
+     </script>
+      <script>
+            $(function(){
+                $("#search").on('click',function(){
+					var keywords = $("#keywords").val();
+					if(keywords==''){
+						layer.msg("请输入关键字");
+						return false;
+					}
+                    $.ajax({
+                        type: 'GET',
+                        url: "{:url('Search/search_news')}",
+                        data: $(".aa").serialize(),
+                        dataType: "json",
+                        success: function(data){
+                            if (data.status ==1) {
+								layer.msg("正在搜索~~");
+			  setTimeout(function () {
+                               window.location.href = "{:url('index/index')}?keywords="+keywords;
+                          },2000);
+								
+                         
+                            } else{
+								layer.msg("没有要查找的信息~~");
+				
+							}
+                        }
+                    })
+                })
+            })
+        </script>
+     {/block}
+</body>
+</html>

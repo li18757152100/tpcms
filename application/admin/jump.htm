@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><!--Head--><head>
+    <meta charset="utf-8">
+    <title>提示页面</title>
+    <meta name="description" content="login page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+   
+</head>
+<!--Head Ends-->
+<!--Body-->
+
+<body style="min-height: 100%;background:url(/public/static/admin/images/bg.jpg) top center no-repeat;">
+<!--
+* $msg 待提示的消息
+* $url 待跳转的链接
+* $time 弹出维持时间（单位秒）
+* icon 这里主要有两个layer的表情，5和6，代表（哭和笑）
+-->
+<script src="/public/static/admin/style/jquery_002.js"></script>
+<script type="text/javascript" src="/public/static/admin/js/layer/layer.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        (function(){
+            var msg = '<?php echo(strip_tags($msg));?>';
+            var iurl = '<?php echo($url);?>';
+            var wait = '<?php echo($wait);?>';
+         <?php
+             switch ($code) {
+                case 1:
+           ?>
+                  layer.alert(msg,{icon:"6",time:wait*2000});
+            <?php
+                   break;
+                case 0:
+             ?>
+                layer.alert(msg,{icon:"5",time:wait*2000});
+            <?php
+                 break;
+                }
+              ?>
+            setTimeout(function(){
+                location.href=iurl;
+            },2000)
+        })();
+    </script>
+
+
+</body><!--Body Ends--></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if(!empty($cate_info['typename'])){echo $cate_info['typename'].'-';}; ?>{$confres.sitename}</title>
+<meta name="keywords" content="<?php if(!empty($cate_info['keywords'])){echo $cate_info['keywords'];}elseif(empty($cate_info['keywords'])){echo $confres['keywords'];}; ?>" />
+<meta name="description" content="<?php if(!empty($cate_info['description'])){echo $cate_info['description'];}elseif(empty($cate_info['description'])){echo $confres['desc'];}; ?>" />
+{block name='css'}
+<!-----加载css----------->
+{/block}
+</head>
+<body>
+{block name='header'}
+<style>
+ .nav{ text-align:center;}
+ .nav li{ list-style:none; display:inline-block; height:80px; line-height:80px; }
+ .nav li a{color:#333; padding:0 15px; line-height:80px;display:inline-block;}
+ .nav li a:hover{ background:blue; color:#fff;}
+ .nav li a.on{background:blue; color:#fff;}
+ .header{width:100%;height:80px; background:#fff; border-bottom:#ebebeb 1px solid; }
+  .t-f{ display:block; margin:10px; width:400px; text-indent:15px;padding:5px; border:1px solid #ebebeb; border-radius:3px;}
+ </style>
+
+<div class='header'>
+<div class='nav'>
+    <ul>
+    <?php $url = strtolower(request()->controller());?>
+    <li><a href='{:url('/')}' class="<?php if($url=='index'){echo 'on';}?>">网站首页</a></li>
+       {volist name='cate_list' id='vo'}
+       <li><a href="{:url('Cate/index')}?id={$vo.id}" {$vo['id']==input('id')?' class="on"':'' }>{$vo.typename}</a></li>
+       {/volist}
+       <li style="color:red;">手机号：{$confres.tel}</li>
+    </ul>
+ </div>
+ </div>
+{/block}
+{block name='body'}
+
+{/block}
+
+	<p style="text-align:center; border-top:1px solid #ddd; width:100%; padding:10px 0;"> {$confres.copyright}</p>
+	{block name='js'}
+    <!-----加载js----------->
+    {/block}
+</body>
+</html>
+

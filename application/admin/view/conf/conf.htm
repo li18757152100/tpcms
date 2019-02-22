@@ -1,0 +1,135 @@
+{extend name="Public:base" /}
+{block name="content"}
+      
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                   <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('lst')}">配置管理</a>
+                        </li>
+                                        <li>
+                        <a href="{:url('lst')}">配置列表</a>
+                    </li>
+                                        <li class="active">站点信息</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+<!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>
+                            站点信息
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen active" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header ">
+                                    <span class="widget-caption">站点信息</span>
+                                </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" id= "uploadForm">
+                  
+                    
+                            
+                   
+                      <?php foreach($confres as $k=>$v):?>
+                          
+                            <!-------->
+                          
+                            <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right"><?php echo $v['cnname'];?></label>
+                            <div class="col-sm-6">
+                             <?php if($v['type']==1): ?>
+                             
+                                 <input class="form-control"  placeholder="<?php echo $v['cnname'];?>" name="<?php echo $v['enname'];?>"  type="text" value="<?php echo $v['value'];?>">
+                           
+                            <?php elseif($v['type']==2): ?>
+                           
+                                     <textarea class="form-control"  rows="4" name="<?php echo $v['enname'];?>" placeholder="<?php echo $v['cnname'];?>"><?php echo $v['value'];?></textarea>
+                            
+                             
+                               <?php elseif($v['type']==3): 
+                                  if($v['values']){
+                                    $arrradio = explode(',',$v['values']);
+                                    }
+                                    foreach($arrradio as $k1=>$v1):
+                                ?>  
+                                                   <div class="radio inline-block">
+                                                        <label>
+                                                            <input name="<?php echo $v['enname'];?>" value="<?php echo $v1; ?>" type="radio" <?php if($v['value']==$v1){ echo 'checked="checked"';} ?>>
+                                                            <span class="text"><?php echo $v1; ?></span>
+                                                        </label>
+                                                    </div>
+                                 
+                                 
+                                    <?php endforeach; ?>
+                                     <?php elseif($v['type']==4): ?>
+                                     <div class="checked inline-block">
+                                    <label>
+                                        <input class="checked" name="<?php echo $v['enname'];?>"  value="<?php echo $v['values']; ?>" type="checkbox" <?php if($v['value']==$v['values']){ echo 'checked="checked"';} ?>>
+                                        <span class="text"><?php echo $v['values']; ?></span>
+                                    </label>
+                                    </div>
+                                    <?php elseif($v['type']==5): 
+                                  if($v['values']){
+                                    $arrselect = explode(',',$v['values']);
+                                    }
+                                    
+                                ?>  
+                                 <select name="<?php echo $v['enname'];?>"  style="width: 50%;" >
+                                 <?php foreach($arrselect as $k2=>$v2): ?>
+                               <option value="<?php echo $v2;?>" <?php if($v['value']==$v2){ echo 'selected="selected"';} ?>><?php echo $v2;?></option>
+                                  <?php endforeach; ?>
+                                                                                                                                                                            </select>
+                                    
+                                     
+                                    <?php endif;?>
+                                </div>
+                        </div>
+                       
+                           
+                          
+                            
+                           <?php endforeach;?>  
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                 <button type="button" class="btn btn-success add-admin-btn" id='confbtn' type = "button">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+       
+
+{/block}
+{block name="js"}
+<script type="text/javascript" src="__ADMIN__/js/conf/conf.js" charset="utf-8"></script>
+{/block}

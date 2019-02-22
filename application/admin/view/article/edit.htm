@@ -1,0 +1,352 @@
+{extend name="Public:base" /}
+{block name="css"}
+<link href="__ADMIN__/style/img.css" rel="stylesheet">
+{/block}
+{block name="content"}
+      
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                   <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('lst')}">文章管理</a>
+                        </li>
+                                        <li>
+                        <a href="{:url('lst')}">文章列表</a>
+                    </li>
+                                        <li class="active">编辑文章</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+<!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>
+                            编辑文章
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen active" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header ">
+                                    <span class="widget-caption">编辑文章</span>
+                                </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" id= "uploadForms">
+                    <div class="tabbable">
+                    <ul class="nav nav-tabs tabs-flat" id="myTab11">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home11">
+                                        常规信息
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#profile11">
+                                        高级参数
+                                    </a>
+                                </li>
+                              
+                            </ul>
+                     <div class="tab-content tabs-flat">
+                            <div id="home11" class="tab-pane active">
+                            <!-------->
+                            
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">标题</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="username" placeholder="" name="title" required type="text" value="{$data.title}">
+                            </div>
+                            <p class="help-block col-sm-4"><span class="label label-info">必填!</span></p>
+                        </div>
+                        <div class="form-group" >
+                            <label for="username" class="col-sm-1 control-label no-padding-right">属性</label>
+                            <div class="col-sm-6">
+                            <?php 
+                                    $attr=$data['attr'];
+                                    $attr=explode(',', $attr);
+
+                                ?>
+                               <div class="checkbox inline-block" style="margin-right:10px;">
+                                                        <label>
+                                                            <input name="attr[]"  type="checkbox" class="colored-success" <?php if(in_array('头条', $attr)){echo 'checked="checked"';}?> value="头条">
+                                                            <span class="text">头条</span>
+                                                        </label>
+                               </div>
+                               <div class="checkbox inline-block" style="margin-right:10px;">
+                                                        <label>
+                                                            <input name="attr[]"  type="checkbox" class="colored-success" <?php if(in_array('推荐', $attr)){echo 'checked="checked"';}?> value="推荐">
+                                                            <span class="text">推荐</span>
+                                                        </label>
+                               </div>
+                               <div class="checkbox inline-block" style="margin-right:10px;">
+                                                        <label>
+                                                            <input name="attr[]"  type="checkbox" class="colored-success" <?php if(in_array('幻灯', $attr)){echo 'checked="checked"';}?> value="幻灯">
+                                                            <span class="text">幻灯</span>
+                                                        </label>
+                               </div>
+                               <div class="checkbox inline-block" style="margin-right:10px;">
+                                                        <label>
+                                                            <input name="attr[]"  type="checkbox" class="colored-success" <?php if(in_array('加粗', $attr)){echo 'checked="checked"';}?> value="加粗">
+                                                            <span class="text">加粗</span>
+                                                        </label>
+                               </div>
+                               <div class="checkbox inline-block">
+                                                        <label>
+                                                            <input name="attr[]"  type="checkbox" class="colored-success" <?php if(in_array('图片', $attr)){echo 'checked="checked"';}?> value="图片">
+                                                            <span class="text">图片</span>
+                                                        </label>
+                               </div>
+                            </div>
+                           
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">作者</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" id="" placeholder="" name="author" required type="text" value="{$data.author}">
+                            </div>
+                            
+                        </div>
+                         
+                                            <div class="form-group">
+                                                <label for="username" class="col-sm-1 control-label no-padding-right">图片上传</label>
+                                                <div class="col-sm-2" style="padding-top:5px;">
+                                                    <!----->
+                                                  {if condition="$data['image'] neq ''"}   
+                                                    <div class="item">
+<a class="addImg" onclick="clickImg(this);" ></a>
+<input name="image" type="file" class="upload_input" onchange="change(this)" />
+<div class="preBlock">
+
+<img class="preview" id="preview" alt="" name="pic" width="150" height="100"  src="__UPLOADS__/article/{$data.image}"/>
+ 
+
+</div>
+<img class="delete" onclick="deleteImg(this)" src="__ADMIN__/images/delete.png" width='22' height='22'/>
+</div>
+{else /}
+                                                <div class="item">
+<a class="addImg" onclick="clickImg(this);" ></a>
+<input name="image" type="file" class="upload_input" onchange="change(this)" />
+<div class="preBlock">
+
+ <img class="preview" id="preview" alt="" name="pic" width="150" height="100" />
+ 
+</div>
+<img class="delete" onclick="deleteImg(this)" src="__ADMIN__/images/delete.png" width='22' height='22'/>
+</div>
+ {/if}
+                                                    <!---------->
+                                                    
+                                                    
+                                                </div>
+                                                 <p class="help-block col-sm-5"><span class="label label-info">图片的格式必须为png或者jpg或者jpeg格式！!</span></p>
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                        <label for="username" class="col-sm-1 control-label no-padding-right">隐藏栏目</label>
+                                        <div class="col-sm-1">
+                                            <label>
+                                                            <input class="checkbox-slider toggle colored-palegreen" type="checkbox">
+                                                            <span class="text"></span>
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group cate-model">
+                            <label for="group_id" class="col-sm-1 control-label no-padding-right">所属分类</label>
+                            <div class="col-sm-3">
+                                <select name="cateid" style="width: 100%;" id='selects'>
+                               <option value="0">==请选择所属分类==</option>
+ {volist name='cateres' id='cate'}
+<option id='{$cate.type}'  {if condition="$cate['type'] eq 4"} disabled{/if} {if condition="$cate['type'] eq 5"} disabled{/if} {if condition="$cate['id'] eq $data['cateid']"}selected="selected"{/if} value="{$cate.id}">{if condition="$cate['level'] neq 0"}<font style="font-weight:100;">├</font>{/if}<?php echo str_repeat('─', $cate['level']*2)?>{$cate.typename}</option>
+{/volist}
+                                                                                                                                                                            </select>
+                            </div>
+                        </div>
+                         <!---------------->
+
+                                <div class="form-group _photos_">
+                                {volist name="photos" id="vo"}
+                                <div style="float:left; width:225px;margin-left:40px;">
+                                    <label for="username" class="col-sm-1 control-label no-padding-right"><a href="javascript:;" class='yuanicon' id="{$vo.id}" onclick="dt(this);">{if condition="$i neq 0"}-{else/}+{/if}</a></label>
+                                    <div class="col-sm-6 help-block">
+                                        <span>图片：</span>
+                                        <img width='150' src="__UPLOADS__/photos/{$vo.fimage}" height='100'>
+                                        
+                                        <br/>
+                                        <span>注释：</span>
+                                        <input style="display:inline; " class="form-control textinput"  placeholder="" value="{$vo.pictitle}" name="old_pictitle[{$vo.id}]"  type="text">
+                                    </div>
+                                    </div>
+                                    {/volist}
+                                    <div style="float:left; width:225px;margin-left:40px;">
+                                <label for="username" class="col-sm-1 control-label no-padding-right"><a href="javascript:;" class='yuanicon' onclick="dt(this);">+</a></label>
+                                <div class="col-sm-6 help-block">
+                                    <span>图片：</span>
+                                   <div class="item">
+<font class="addImg" onclick="clickImg(this);" ></font>
+<input name="fimage[]" type="file" class="upload_input" onchange="change(this)" />
+<div class="preBlock">
+<img class="preview" id="preview" alt="" name="pic" width="150" height="100" />
+</div>
+<img class="delete" onclick="deleteImg(this)" src="__ADMIN__/images/delete.png" width='22' height='22'/>
+</div>
+                                    <br/>
+                                    <span>注释：</span>
+                                    <input class='form-control textinput'  placeholder="" name="pictitle[]"  type="text ">
+                                </div>
+                                </div>
+                                </div>
+                            
+                   
+                        <!------------------>
+                                    <div class="form-group">
+                                     <label for="username" class="col-sm-1 control-label no-padding-right">内容</label>
+                                  <div class="col-sm-6">
+                                <textarea id="content" name='content' rows="3" required placeholder="">{$data.content}</textarea>
+
+                            </div>
+                           
+                        </div>
+                            <!--------->
+                            </div>
+                            <div id="profile11" class="tab-pane">
+                                   <!------------->
+                                    <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">关键词</label>
+                            <div class="col-sm-6">
+                                <input class="form-control"  placeholder="" name="keywords"  type="text" value="{$data.keywords}">
+                            </div>
+                           
+                        </div>
+                        
+ <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">文章描述</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control"  rows="6" name='description' placeholder="">{$data.description}</textarea>
+
+                            </div>
+                          
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">排序</label>
+                            <div class="col-sm-2">
+                                <input class="form-control"  placeholder="" name="sort"  type="text" value="{$data.sort}">
+                            </div>
+                           
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">浏览次数</label>
+                            <div class="col-sm-2">
+                                <input class="form-control"  placeholder="" name="click"  type="text" value="{$data.click}">
+                            </div>
+                           
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label no-padding-right">点赞数</label>
+                            <div class="col-sm-2">
+                                <input class="form-control"  placeholder="" name="zan"  type="text" value="{$data.zan}">
+                            </div>
+                           
+                        </div>
+  
+                                   <!--------------->
+                            </div>
+                            
+                     </div>
+                     </div>       
+                    
+   
+                        
+ <input type="hidden" name="id" value="{$data.id}">
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                 <button type="button" class="btn btn-success add-admin-btn" onclick="edoUpload()" type = "button">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+       
+
+{/block}
+{block name="js"}
+    <script src="__ADMIN__/ueditor/ueditor.config.js"></script>
+    <script src="__ADMIN__/ueditor/ueditor.all.min.js"></script>
+    <script src="__ADMIN__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="__ADMIN__/js/upimg.js" charset="utf-8"></script>
+   <script type="text/javascript" src="__ADMIN__/js/article/article.js" charset="utf-8"></script>
+   <script src="__ADMIN__/js/imgUp.js"></script>
+<script type="text/javascript">
+       var val = $("select option:checked").attr("id")
+		if(val == 2){
+			$("._photos_,#ddd").show();
+		}else{
+			$("._photos_").hide();
+		}
+       $("#img").click(function(){
+            $(".img").show();
+            $(".lh").hide();
+        });
+        $("#lh").click(function(){
+            $(".img").hide();
+            $(".lh").show();
+        });
+        //ajax删除轮播广告记录
+        function ajaxdel(o,id,div){
+			layer.confirm('确定要删除该图片吗？',function(index){
+              //发异步删除数据
+			  $.get("{:url('Article/ajaxdel')}",{id:id});
+              div.remove();
+              layer.msg('删除成功', {icon: 1});
+			  return false;
+                   
+                          /*setTimeout(function () {
+                               window.location.href = "/admin/article/lst";
+                          },2000);*/
+
+          });
+		  
+        }
+        //
+        function dt(o){
+            var div=$(o).parent().parent();
+            var id=$(o).attr("id");
+            if($(o).html()==='+'){
+                var newdiv=" <div style='float:left; width:225px;margin-left:40px;'><label for='username' class='col-sm-1 control-label no-padding-right'><a href='javascript:;' onclick='dt(this);' class='yuanicon'>-</a></label><div class='col-sm-6 help-block'><span>图片：</span><div class='item'><font class='addImg' onclick='clickImg(this);' ></font><input name='fimage[]' type='file' class='upload_input' onchange='change(this)' /><div class='preBlock'><img class='preview' id='preview' alt='' name='pic' width='150' height='100' /></div><img class='delete' onclick='deleteImg(this)'src='__ADMIN__/images/delete.png' width='22' height='22'/></div><br/><span>注释：</span><input class='form-control textinput' style='display:inline;' placeholder='' value='' name='pictitle[]'  type='text'></div></div>";
+                div.after(newdiv);
+            }else{
+                if(id){
+                    ajaxdel(o,id,div);
+                }else{
+                    div.remove();
+                }
+            }
+        }
+</script>
+
+{/block}

@@ -1,0 +1,87 @@
+{extend name='public/base'}
+{block name="css"}
+  {/block}
+{block name='body'}
+<div class="path" style="width:1200px; margin:auto; margin-top:20px; margin-bottom:15px;">
+<a href='/'>网站首页</a> > 
+        {volist name="posArr" id="posCate"}
+        <a href='{:url('cate/index')}?cateid={$posCate.id}'>{$posCate.typename}</a> > 
+        {/volist}
+        </div>
+        
+{if condition="$cate_info.type eq 1"}
+<div style="width:1200px; margin:auto;">
+<p style="text-align:center; margin:auto;">{if condition="$cate_info['image'] neq ''"}
+                                            <img style="display:inline-block;width:100%; height:260px;" src="/public/uploads/articlecate/{$cate_info.image}" alt='{$cate_info.typename}'>
+                                            {else /}
+                                            <img alt='{$cate_info.typename}' src="/public/static/admin/images/default.gif" style="display:inline-block;width:100%; height:260px;"  alt="{$cate_info.typename}">
+                                            {/if}</p>
+                                            <div style="clear:both; height:20px;"></div>
+                                            <style>
+											.sonmenu{font-size:14px; display:inline-block; padding:5px 15px; border:1px solid #ddd; text-align:center;}
+											a.sonactive{color:#fff!important; background:blue!important; border:1px solid blue!important;padding:5px 15px;}
+											</style>
+                                            {volist name='cates' id='vo'}
+                                            <a href='{:url('cate/index')}?cateid={$vo.id}' {$vo['id']==$current?' class="sonmenu sonactive"':'' } class='sonmenu'>{$vo.typename}</a>
+                                            {/volist}
+<ul style="margin-top:30px;">
+   {volist name='list' id='vo'}
+   <li><a href='{:url('cate/show')}?cateid={$vo.cateid}&aid={$vo.id}' style="line-height:30px;"><font style="margin-right:10px;">&#10140</font>{$vo.title}</a><span style='background:#eee;'>{$vo.time|date="Y-m-d H:i:s",###}</span></li>
+   <!--<li><a href="{:url('cate/show')}?cateid={$vo.cateid}&aid={$vo.id}">{$vo.title}</a></li>-->
+
+   {/volist}
+</ul>
+  <div style="margin:20px; text-align:center">
+    {$page}
+ </div>
+ {empty name='list'}
+ <p>暂时没有数据~</p>
+  {/empty}
+</div>
+{elseif condition="$cate_info.type eq 2" /}
+<div style="width:1200px; margin:auto;">
+<p style="text-align:center; margin:auto;">{if condition="$cate_info['image'] neq ''"}
+                                            <img style="display:inline-block;width:100%; height:260px;" src="/public/uploads/articlecate/{$cate_info.image}" alt='{$cate_info.typename}'>
+                                            {else /}
+                                            <img alt='{$cate_info.typename}' src="/public/static/admin/images/default.gif" style="display:inline-block;width:100%; height:260px;"  alt="{$cate_info.typename}">
+                                            {/if}</p>
+                                            <div style="clear:both; height:20px;"></div>
+                                            <style>
+											.listpic li{ list-style:none; width:25%; float:left; text-align:center; border:1px solid  #ebebeb;padding:20px;}
+											.listpic li img{width:100px; height:120px; display:inline-block;}
+											.listpic li h1{ display:block; text-align:center; font-size:14px; margin-top:10px;}
+											</style>
+                                            <ul class='listpic'>
+   {volist name='listpic' id='vo'}
+   <li><a href='{:url('cate/show',['cateid'=>$vo['cateid'],'aid'=>$vo['id']])}'>{if condition="$vo['image'] neq ''"}<img src="/public/uploads/article/{$vo.image}"/><h1>{$vo.title}</h1> {else /}
+                                            <img  src="/public/static/admin/images/default.gif"  ><h1>{$vo.title}</h1>
+                                            {/if}</a></li>
+   {/volist}
+</ul>
+<div style="clear:both; height:20px;"></div>
+  <div style="margin:20px; text-align:center">
+    {$page}
+ </div>
+{empty name='list'}
+ <p>暂时没有数据~</p>
+  {/empty}
+</div>
+{elseif condition="$cate_info.type eq 3" /}
+<div style="width:1200px; margin:auto;">
+<p style="text-align:center; margin:auto;">{if condition="$cate_info['image'] neq ''"}
+                                            <img style="display:inline-block;width:100%; height:260px;" src="/public/uploads/articlecate/{$cate_info.image}" alt='{$cate_info.typename}'>
+                                            {else /}
+                                            <img alt='{$cate_info.typename}' src="/public/static/admin/images/default.gif" style="display:inline-block; width:100%; height:260px;"  alt="{$cate_info.typename}">
+                                            {/if}</p>
+                                            <div style="clear:both; height:20px;"></div>
+{$cate_info.content}
+</div>
+
+{/if}
+    {/block}
+       
+{block name="js"}
+ 
+     {/block}
+</body>
+</html>
